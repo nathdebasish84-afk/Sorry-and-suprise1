@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorry & Surprise — Send a Beautiful Apology</title>
+  <meta name="description" content="Send heartfelt virtual bouquets and apology letters to someone special. Create a beautiful, shareable surprise in seconds." />
+  <meta property="og:title" content="Sorry & Surprise 💐" />
+  <meta property="og:description" content="I made something special for you. Open to see..." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --rose:       #C8536F;
+      --rose-light: #E8849A;
+      --rose-deep:  #9E3A52;
+      --blush:      #F9E8EE;
+      --blush-mid:  #F0CEDB;
+      --cream:      #FFF8F5;
+      --champagne:  #C9A84C;
+      --champagne-light: #E8D08A;
+      --ink:        #2D1B25;
+      --muted:      #7A5967;
+
+      --bg:         var(--cream);
+      --surface:    #FFFFFF;
+      --text:       var(--ink);
+      --text-muted: var(--muted);
+      --border:     var(--blush-mid);
+
+      --shadow-soft: 0 8px 40px rgba(200,83,111,0.12);
+      --shadow-card: 0 4px 24px rgba(45,27,37,0.08);
+      --radius-lg:  20px;
+      --radius-xl:  32px;
+      --tr: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    [data-theme="dark"] {
+      --bg:         #1A0F15;
+      --surface:    #2A1820;
+      --text:       #F5DDE6;
+      --text-muted: #A07080;
+      --border:     #3D2030;
+      --blush:      #2A1820;
+      --blush-mid:  #3D2030;
+      --cream:      #1A0F15;
+      --shadow-soft: 0 8px 40px rgba(200,83,111,0.25);
+      --shadow-card: 0 4px 24px rgba(0,0,0,0.4);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background var(--tr), color var(--tr);
+      overflow-x: hidden;
+    }
+
+    /* ── Utilities ── */
+    .page { display: none; }
+    .page.active { display: block; animation: pageFade 0.4s ease both; }
+    @keyframes pageFade { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+
+    /* ── Header ── */
+    .site-header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      background: rgba(255,248,245,0.9);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex; align-items: center; justify-content: space-between;
+      transition: background var(--tr);
+    }
+    [data-theme="dark"] .site-header { background: rgba(26,15,21,0.92); }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 21px; font-weight: 500; color: var(--rose);
+      cursor: pointer; user-select: none;
+    }
+    .logo span { color: var(--champagne); }
+
+    .header-right { display: flex; gap: 10px; align-items: center; }
+
+    .btn-icon {
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: var(--surface);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 16px; line-height: 1;
+      transition: all var(--tr); color: var(--text); flex-shrink: 0;
+    }
+    .btn-icon:hover { background: var(--blush); border-color: var(--rose-light); }
+
+    /* ── Buttons ── */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+      padding: 13px 26px; border-radius: 100px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px; font-weight: 500;
+      cursor: pointer; border: none; text-decoration: none;
+      transition: all var(--tr); letter-spacing: 0.01em;
+      white-space: nowrap; user-select: none;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--rose) 0%, var(--rose-deep) 100%);
+      color: white; box-shadow: 0 5px 20px rgba(200,83,111,0.32);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 9px 28px rgba(200,83,111,0.42); }
+    .btn-secondary {
+      background: var(--surface); color: var(--rose);
+      border: 1.5px solid var(--rose-light);
+    }
+    .btn-secondary:hover { background: var(--blush); transform: translateY(-1px); }
+    .btn-champagne {
+      background: linear-gradient(135deg, var(--champagne) 0%, #A88030 100%);
+      color: white; box-shadow: 0 5px 20px rgba(201,168,76,0.32);
+    }
+    .btn-champagne:hover { transform: translateY(-2px); box-shadow: 0 9px 28px rgba(201,168,76,0.42); }
+    .btn-whatsapp {
+      background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+      color: white; box-shadow: 0 5px 20px rgba(37,211,102,0.32);
+      padding: 15px 32px;
+    }
+    .btn-whatsapp:hover { transform: translateY(-2px); box-shadow: 0 9px 28px rgba(37,211,102,0.42); }
+    .btn-lg { padding: 16px 36px; font-size: 16px; }
+
+    /* ── Inputs ── */
+    .form-group { display: flex; flex-direction: column; gap: 7px; }
+    .form-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px; font-weight: 600; letter-spacing: 0.07em;
+      color: var(--rose-deep); text-transform: uppercase;
+    }
+    [data-theme="dark"] .form-label { color: var(--rose-light); }
+    .form-input, .form-textarea {
+      background: var(--surface); color: var(--text);
+      border: 1.5px solid var(--border);
+      border-radius: 14px; padding: 13px 17px;
+      font-family: 'DM Sans', sans-serif; font-size: 15px;
+      transition: border-color 0.2s, box-shadow 0.2s; outline: none; width: 100%;
+    }
+    .form-input:focus, .form-textarea:focus {
+      border-color: var(--rose); box-shadow: 0 0 0 4px rgba(200,83,111,0.1);
+    }
+    .form-input.error, .form-textarea.error {
+      border-color: #E74C3C; box-shadow: 0 0 0 4px rgba(231,76,60,0.1);
+    }
+    .form-textarea { min-height: 148px; resize: vertical; line-height: 1.7; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    @media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+    .field-err { font-size: 12px; color: #E74C3C; display: none; margin-top: 3px; }
+    .field-err.show { display: block; }
+    .char-count { font-size: 12px; color: var(--text-muted); text-align: right; margin-top: 4px; }
+
+    /* ── Card ── */
+    .card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); padding: 30px;
+      box-shadow: var(--shadow-card); margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 22px; font-weight: 500;
+      margin-bottom: 22px; color: var(--text);
+      display: flex; align-items: center; gap: 10px;
+    }
+    .card-subtitle { font-size: 13px; font-weight: 400; color: var(--text-muted); margin-left: 6px; }
+
+    /* ════════════════════════════
+       PAGE: LANDING
+    ════════════════════════════ */
+    #page-landing { min-height: 100vh; padding-top: 68px; }
+
+    .hero {
+      /* position:relative keeps petals canvas scoped here — no viewport overflow */
+      position: relative; overflow: hidden;
+      min-height: calc(100vh - 68px);
+      display: flex; align-items: center; padding: 60px 24px;
+    }
+    /* Petals canvas lives INSIDE .hero which is position:relative */
+    .hero-petals-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none; /* never blocks clicks */
+      z-index: 0;
+    }
+    .hero-glow {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 60% 40%, rgba(200,83,111,0.13) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 40% at 20% 70%, rgba(201,168,76,0.08) 0%, transparent 60%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; /* above canvas and glow */
+      max-width: 640px; margin: 0 auto; text-align: center;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--blush); border: 1px solid var(--blush-mid);
+      border-radius: 100px; padding: 8px 20px;
+      font-size: 13px; font-weight: 500; color: var(--rose-deep);
+      margin-bottom: 26px; letter-spacing: 0.05em;
+    }
+    [data-theme="dark"] .hero-badge { background: rgba(200,83,111,0.15); border-color: rgba(200,83,111,0.3); color: var(--rose-light); }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(44px, 8vw, 80px); font-weight: 300; line-height: 1.05;
+      color: var(--text); margin-bottom: 22px;
+    }
+    .hero-title em { font-style: italic; color: var(--rose); }
+    .hero-title .gold { color: var(--champagne); }
+    .hero-sub { font-size: clamp(15px,2.5vw,17px); color: var(--text-muted); line-height: 1.75; margin-bottom: 40px; font-weight: 300; }
+    .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-bottom: 52px; }
+    .hero-stats { display: flex; gap: 36px; justify-content: center; flex-wrap: wrap; }
+    .stat-num { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 500; color: var(--rose); line-height: 1; }
+    .stat-lbl { font-size: 12px; color: var(--text-muted); margin-top: 3px; letter-spacing: 0.05em; text-transform: uppercase; }
+
+    .features-section { padding: 72px 24px; max-width: 1000px; margin: 0 auto; }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px,5vw,50px); font-weight: 300;
+      text-align: center; margin-bottom: 52px; color: var(--text);
+    }
+    .section-title em { font-style: italic; color: var(--rose); }
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); gap: 20px; }
+    .feat-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      transition: all var(--tr); position: relative; overflow: hidden;
+    }
+    .feat-card::before {
+      content:''; position: absolute; top:0; left:0; right:0; height:3px;
+      background: linear-gradient(90deg, var(--rose), var(--champagne));
+      opacity:0; transition: opacity var(--tr);
+    }
+    .feat-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-soft); }
+    .feat-card:hover::before { opacity:1; }
+    .feat-icon { font-size: 32px; margin-bottom: 14px; }
+    .feat-title { font-family: 'Cormorant Garamond', serif; font-size: 21px; font-weight: 500; margin-bottom: 8px; color: var(--text); }
+    .feat-desc { font-size: 14px; color: var(--text-muted); line-height: 1.65; }
+
+    /* ════════════════════════════
+       PAGE: CREATE
+       All fields visible at once — no step gates
+    ════════════════════════════ */
+    #page-create { min-height: 100vh; padding-top: 68px; }
+    .create-wrap { max-width: 780px; margin: 0 auto; padding: 44px 20px 80px; }
+    .page-hdr { text-align: center; margin-bottom: 38px; }
+    .page-hdr h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(30px,5vw,50px); font-weight: 300;
+      margin-bottom: 10px; color: var(--text);
+    }
+    .page-hdr h1 em { font-style: italic; color: var(--rose); }
+    .page-hdr p { color: var(--text-muted); font-size: 15px; }
+
+    /* Bouquet grid */
+    .bouquet-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(115px, 1fr));
+      gap: 13px;
+    }
+    .bq-item {
+      border: 2.5px solid var(--border); border-radius: 18px;
+      padding: 16px 10px; text-align: center; cursor: pointer;
+      transition: all var(--tr); background: var(--surface);
+      position: relative; overflow: hidden; user-select: none;
+    }
+    .bq-item:hover {
+      border-color: var(--rose-light);
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(200,83,111,0.18);
+    }
+    .bq-item.selected {
+      border-color: var(--rose);
+      background: var(--blush);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(200,83,111,0.22);
+    }
+    [data-theme="dark"] .bq-item.selected { background: rgba(200,83,111,0.18); }
+    .bq-item.selected::after {
+      content: '✓'; position: absolute; top: 7px; right: 9px;
+      font-size: 11px; color: var(--rose); font-weight: 700;
+    }
+    .bq-emoji { font-size: 38px; margin-bottom: 8px; display: block; transition: transform 0.22s ease; line-height: 1; }
+    .bq-item:hover .bq-emoji { transform: scale(1.2) rotate(-5deg); }
+    .bq-item.selected .bq-emoji { transform: scale(1.1); }
+    .bq-name { font-size: 12px; font-weight: 600; color: var(--text); }
+    .bq-vibe { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+
+    /* Music */
+    .music-grid { display: grid; grid-template-columns: repeat(auto-fill,minmax(145px,1fr)); gap: 11px; }
+    .mu-item {
+      border: 2px solid var(--border); border-radius: 14px;
+      padding: 13px 14px; cursor: pointer; transition: all var(--tr);
+      background: var(--surface); display: flex; align-items: center; gap: 10px;
+      user-select: none;
+    }
+    .mu-item:hover { border-color: var(--champagne-light); transform: translateY(-1px); }
+    .mu-item.selected { border-color: var(--champagne); background: rgba(201,168,76,0.09); }
+    [data-theme="dark"] .mu-item.selected { background: rgba(201,168,76,0.12); }
+    .mu-icon { font-size: 20px; flex-shrink: 0; }
+    .mu-name { font-size: 13px; font-weight: 600; color: var(--text); }
+    .mu-desc { font-size: 11px; color: var(--text-muted); }
+
+    /* Stickers */
+    .sticker-row { display: flex; flex-wrap: wrap; gap: 8px; }
+    .stk-btn {
+      font-size: 26px; cursor: pointer; padding: 7px 8px; border-radius: 10px;
+      border: 2px solid transparent; transition: all 0.18s;
+      background: transparent; line-height: 1; user-select: none;
+    }
+    .stk-btn:hover { transform: scale(1.3); background: var(--blush); border-color: var(--blush-mid); }
+    .stk-btn.selected { border-color: var(--rose); background: var(--blush); }
+    .sel-stickers { min-height: 34px; display: flex; flex-wrap: wrap; gap: 5px; align-items: center; font-size: 22px; padding: 4px 0; }
+    .stk-placeholder { font-size: 13px; color: var(--text-muted); font-style: italic; }
+
+    .form-actions-row { display: flex; gap: 14px; justify-content: flex-end; margin-top: 28px; flex-wrap: wrap; }
+
+    /* ════════════════════════════
+       PAGE: PREVIEW
+    ════════════════════════════ */
+    #page-preview { min-height: 100vh; padding-top: 68px; }
+    .preview-wrap { max-width: 640px; margin: 0 auto; padding: 44px 20px 80px; }
+
+    .preview-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden; box-shadow: var(--shadow-soft);
+    }
+    .pv-header {
+      background: linear-gradient(135deg, #C8536F 0%, #9E3A52 100%);
+      padding: 40px 32px; text-align: center; position: relative; overflow: hidden;
+    }
+    .pv-header::before {
+      content:''; position: absolute; inset:0;
+      background: radial-gradient(circle at 70% 30%, rgba(255,255,255,0.14) 0%, transparent 60%);
+    }
+    .pv-bouquet { font-size: 74px; display: block; margin-bottom: 14px; animation: floatBq 3s ease-in-out infinite; }
+    @keyframes floatBq { 0%,100%{transform:translateY(0) rotate(-3deg)} 50%{transform:translateY(-10px) rotate(3deg)} }
+    .pv-to { font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.72); font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; }
+    .pv-name { font-family: 'Cormorant Garamond', serif; color: white; font-size: 34px; font-weight: 300; font-style: italic; }
+    .pv-from { color: rgba(255,255,255,0.58); font-size: 14px; margin-top: 6px; }
+
+    .pv-body { padding: 34px 32px; }
+    .pv-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 18px; line-height: 1.9; color: var(--text);
+      font-style: italic; font-weight: 300;
+      border-left: 3px solid var(--rose-light);
+      padding-left: 22px; margin-bottom: 20px;
+      white-space: pre-wrap; word-break: break-word;
+    }
+    .pv-stickers { font-size: 26px; margin-bottom: 16px; letter-spacing: 4px; min-height: 8px; }
+    .pv-music-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(201,168,76,0.1); border: 1px solid var(--champagne-light);
+      border-radius: 100px; padding: 7px 16px;
+      font-size: 13px; color: var(--champagne); font-weight: 500;
+    }
+    .mbar-wrap { display: inline-flex; gap: 2px; align-items: flex-end; height: 13px; margin-right: 4px; }
+    .mbar { width: 3px; border-radius: 2px; background: var(--champagne); animation: mbarDance 0.75s ease-in-out infinite; }
+    .mbar:nth-child(2){ animation-delay:.15s } .mbar:nth-child(3){ animation-delay:.3s }
+    @keyframes mbarDance { 0%,100%{height:3px} 50%{height:13px} }
+
+    .pv-actions {
+      padding: 24px 32px; border-top: 1px solid var(--border);
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    }
+    .share-box {
+      background: var(--blush); border: 1.5px solid var(--blush-mid);
+      border-radius: 14px; padding: 16px 20px; margin: 16px 0;
+      display: flex; gap: 12px; align-items: center; flex-wrap: wrap;
+    }
+    [data-theme="dark"] .share-box { background: rgba(200,83,111,0.1); border-color: rgba(200,83,111,0.25); }
+    .share-link { flex:1; font-size: 13px; color: var(--text-muted); word-break: break-all; font-family: monospace; min-width: 0; }
+    .copy-btn {
+      background: var(--rose); color: white; border: none;
+      border-radius: 8px; padding: 8px 16px; font-size: 13px;
+      cursor: pointer; white-space: nowrap; transition: all 0.2s;
+    }
+    .copy-btn:hover { background: var(--rose-deep); }
+    .copy-btn.copied { background: #27AE60; }
+
+    /* ════════════════════════════
+       PAGE: VIEW (receiver)
+    ════════════════════════════ */
+    #page-view {
+      min-height: 100vh; padding: 0;
+      /* position:relative scopes the petals canvas */
+      position: relative; overflow: hidden;
+    }
+    .view-petals-canvas {
+      position: absolute; inset: 0;
+      pointer-events: none; z-index: 0;
+    }
+    .view-glow {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 50% 30%, rgba(200,83,111,0.18) 0%, transparent 70%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(201,168,76,0.1) 0%, transparent 60%);
+    }
+    .view-scene {
+      position: relative; z-index: 1;
+      min-height: 100vh;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      padding: 80px 20px 60px;
+    }
+    .view-card {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius-xl); overflow: hidden;
+      box-shadow: 0 20px 80px rgba(200,83,111,0.2);
+      max-width: 520px; width: 100%;
+    }
+    .view-header {
+      background: linear-gradient(150deg, #C8536F 0%, #9E3A52 50%, #7A2D3F 100%);
+      padding: 48px 32px 40px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .view-header::after {
+      content:''; position: absolute; bottom:-1px; left:0; right:0; height:36px;
+      background: var(--surface);
+      clip-path: ellipse(55% 100% at 50% 100%);
+    }
+    .view-bq-wrap { position: relative; display: inline-block; margin-bottom: 18px; }
+    .view-bq {
+      font-size: 86px; display: block;
+      animation: vbqIn 0.8s cubic-bezier(0.175,0.885,0.32,1.275) both, floatBq 3s 0.9s ease-in-out infinite;
+      filter: drop-shadow(0 8px 20px rgba(0,0,0,0.2));
+    }
+    @keyframes vbqIn { from{transform:scale(0) rotate(-20deg);opacity:0} to{transform:scale(1) rotate(0);opacity:1} }
+    .petal-ring { position: absolute; inset:-24px; animation: ringRot 8s linear infinite; pointer-events: none; }
+    @keyframes ringRot { to{transform:rotate(360deg)} }
+    .petal-ring span { position: absolute; font-size: 16px; top:50%; left:50%; margin:-9px 0 0 -9px; }
+    .view-greeting { font-family: 'Cormorant Garamond', serif; color: rgba(255,255,255,0.68); font-size: 13px; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 6px; }
+    .view-recipient { font-family: 'Cormorant Garamond', serif; color: white; font-size: 42px; font-weight: 300; font-style: italic; line-height: 1.1; }
+    .view-sender { color: rgba(255,255,255,0.52); font-size: 14px; margin-top: 8px; }
+    .view-body { padding: 40px 32px 28px; }
+    .view-letter {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 19px; line-height: 1.95; color: var(--text);
+      font-style: italic; min-height: 60px; white-space: pre-wrap; word-break: break-word;
+    }
+    .cursor {
+      display: inline-block; width: 2px; height: 1.1em; background: var(--rose);
+      margin-left: 2px; vertical-align: text-bottom;
+      animation: cursorBlink 0.7s step-end infinite;
+    }
+    @keyframes cursorBlink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .view-stickers { font-size: 28px; margin-top: 18px; letter-spacing: 5px; opacity: 0; animation: stickIn 0.5s 2s ease forwards; }
+    @keyframes stickIn { to{opacity:1;transform:none} from{opacity:0;transform:translateY(10px)} }
+    .view-footer { padding: 24px 32px 32px; border-top: 1px solid var(--border); text-align: center; }
+    .view-cta-txt { font-family: 'Cormorant Garamond', serif; font-size: 16px; color: var(--text-muted); margin-bottom: 16px; font-style: italic; }
+
+    /* ── Music player ── */
+    .music-player {
+      position: fixed; bottom: 24px; right: 24px; z-index: 300;
+      display: none; align-items: center; gap: 10px; pointer-events: auto;
+    }
+    .music-player.on { display: flex; }
+    .music-btn {
+      width: 50px; height: 50px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--rose), var(--rose-deep));
+      color: white; border: none; cursor: pointer;
+      box-shadow: var(--shadow-soft); transition: transform var(--tr);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .music-btn:hover { transform: scale(1.1); }
+    .music-lbl {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: 100px; padding: 7px 16px; font-size: 13px;
+      color: var(--text-muted); box-shadow: var(--shadow-card);
+    }
+
+    /* ── Confetti ── */
+    #confetti-canvas { position:fixed; inset:0; z-index:9998; pointer-events:none; }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(16px);
+      background: var(--ink); color: white; padding: 12px 26px;
+      border-radius: 100px; font-size: 14px; font-weight: 500;
+      z-index: 9999; opacity: 0;
+      transition: all 0.28s ease; white-space: nowrap; pointer-events: none;
+    }
+    [data-theme="dark"] .toast { background: var(--rose); }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    /* ── Loading overlay ── */
+    .loading-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--bg);
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 20px;
+      transition: opacity 0.45s ease;
+    }
+    .loading-overlay.fade { opacity: 0; pointer-events: none; }
+    .load-flower { font-size: 56px; animation: lfAnim 1.4s ease-in-out infinite; }
+    @keyframes lfAnim { 0%,100%{transform:rotate(-10deg) scale(0.9)} 50%{transform:rotate(10deg) scale(1.1)} }
+    .load-text { font-family: 'Cormorant Garamond', serif; font-size: 20px; color: var(--text-muted); font-style: italic; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      .card, .pv-body, .pv-header, .pv-actions,
+      .view-body, .view-footer, .view-header { padding-left: 18px; padding-right: 18px; }
+      .bouquet-grid { grid-template-columns: repeat(4, 1fr); gap: 10px; }
+      .bq-item { padding: 12px 6px; }
+      .bq-emoji { font-size: 30px; }
+    }
+    @media (max-width: 380px) { .bouquet-grid { grid-template-columns: repeat(3, 1fr); } }
+
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--blush-mid); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--rose-light); }
+  </style>
+</head>
+<body>
+
+<!-- LOADING — pointer-events disabled immediately by JS, no CSS animation blocking -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="load-flower">🌹</div>
+  <div class="load-text">Preparing your garden…</div>
+</div>
+
+<!-- HEADER -->
+<header class="site-header">
+  <a class="logo" onclick="showPage('landing')">Sorry <span>&</span> Surprise</a>
+  <div class="header-right">
+    <button class="btn-icon" id="darkBtn" onclick="toggleDark()" title="Toggle theme">🌙</button>
+    <button class="btn btn-primary" onclick="showPage('create')" style="padding:10px 20px;font-size:13px">Create 💐</button>
+  </div>
+</header>
+
+<!-- ═══════════════════════════ PAGE: LANDING ═══════════════════════════ -->
+<section id="page-landing" class="page active">
+
+  <div class="hero">
+    <!-- Canvas is INSIDE .hero (position:relative) so it stays scoped here -->
+    <canvas class="hero-petals-canvas" id="heroPetals"></canvas>
+    <div class="hero-glow"></div>
+    <div class="hero-content">
+      <div class="hero-badge">🌸 &nbsp; Virtual Bouquets &amp; Heartfelt Letters</div>
+      <h1 class="hero-title">
+        Send a <em>Beautiful</em><br>
+        Apology<br>&amp; <span class="gold">Surprise</span>
+      </h1>
+      <p class="hero-sub">
+        Words matter. Flowers say what words cannot.<br>
+        Create a shareable, animated surprise in under 2 minutes.
+      </p>
+      <div class="hero-cta">
+        <button class="btn btn-primary btn-lg" onclick="showPage('create')">💐 Create Your Message</button>
+        <button class="btn btn-secondary btn-lg" onclick="scrollToFeats()">See How It Works</button>
+      </div>
+      <div class="hero-stats">
+        <div><div class="stat-num">8</div><div class="stat-lbl">Bouquet Styles</div></div>
+        <div><div class="stat-num">∞</div><div class="stat-lbl">Heartfelt Letters</div></div>
+        <div><div class="stat-num">1-tap</div><div class="stat-lbl">WhatsApp Share</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="features-section" id="featsSection">
+    <h2 class="section-title">How the <em>Magic</em> Works</h2>
+    <div class="features-grid">
+      <div class="feat-card">
+        <div class="feat-icon">💐</div>
+        <div class="feat-title">Pick a Bouquet</div>
+        <div class="feat-desc">8 stunning styles — roses, tulips, sunflowers, and more. Visible right away.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">✍️</div>
+        <div class="feat-title">Write Your Letter</div>
+        <div class="feat-desc">A heartfelt apology, sweet note, or love message — in your own words.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">🎵</div>
+        <div class="feat-title">Add the Mood</div>
+        <div class="feat-desc">Optional music and emoji stickers to make it truly unforgettable.</div>
+      </div>
+      <div class="feat-card">
+        <div class="feat-icon">💚</div>
+        <div class="feat-title">Share on WhatsApp</div>
+        <div class="feat-desc">One tap generates your link. Send it straight to their phone.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PAGE: CREATE ═══════════════════════════ -->
+<!-- ALL fields on ONE scrollable page — no hidden gate, bouquets are at the top -->
+<section id="page-create" class="page">
+  <div class="create-wrap">
+
+    <div class="page-hdr">
+      <h1>Create Your <em>Surprise</em></h1>
+      <p>Choose a bouquet, write your message, then hit Preview ✨</p>
+    </div>
+
+    <!-- ① BOUQUET — first and most visual -->
+    <div class="card">
+      <div class="card-title">💐 Choose Your Bouquet</div>
+      <div class="bouquet-grid" id="bouquetGrid"></div>
+    </div>
+
+    <!-- ② NAMES + LETTER -->
+    <div class="card">
+      <div class="card-title">💌 The Letter</div>
+      <div style="display:flex;flex-direction:column;gap:18px">
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="senderName">Your Name</label>
+            <input class="form-input" id="senderName" placeholder="e.g. Alex" maxlength="40" autocomplete="off" />
+            <div class="field-err" id="errSender">Please enter your name</div>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="receiverName">Their Name</label>
+            <input class="form-input" id="receiverName" placeholder="e.g. Jordan" maxlength="40" autocomplete="off" />
+            <div class="field-err" id="errReceiver">Please enter their name</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="letterText">Your Message</label>
+          <textarea class="form-textarea" id="letterText"
+            placeholder="Dear [name],&#10;&#10;I'm truly sorry for what happened. I want you to know how much you mean to me…&#10;&#10;With all my love,"></textarea>
+          <div class="field-err" id="errLetter">Please write a message</div>
+          <div class="char-count"><span id="charCount">0</span> characters</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ③ MUSIC -->
+    <div class="card">
+      <div class="card-title">🎵 Background Music <span class="card-subtitle">(optional)</span></div>
+      <div class="music-grid" id="musicGrid"></div>
+    </div>
+
+    <!-- ④ STICKERS -->
+    <div class="card">
+      <div class="card-title">🎉 Add Stickers <span class="card-subtitle">(optional, max 6)</span></div>
+      <div class="sticker-row" id="stickerRow"></div>
+      <div style="margin-top:14px;font-size:13px;color:var(--text-muted);margin-bottom:6px">Selected:</div>
+      <div class="sel-stickers" id="selStickers"><span class="stk-placeholder">None yet</span></div>
+    </div>
+
+    <div class="form-actions-row">
+      <button class="btn btn-secondary" onclick="showPage('landing')">← Back</button>
+      <button class="btn btn-primary btn-lg" onclick="submitCreate()">Preview My Surprise 🎉</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PAGE: PREVIEW ═══════════════════════════ -->
+<section id="page-preview" class="page">
+  <div class="preview-wrap">
+    <div class="page-hdr">
+      <h1>Your <em>Surprise</em> is Ready</h1>
+      <p>Here's exactly how they'll see it</p>
+    </div>
+
+    <div class="preview-card">
+      <div class="pv-header">
+        <span class="pv-bouquet" id="pvBouquet">🌹</span>
+        <div class="pv-to">For</div>
+        <div class="pv-name" id="pvName">Someone Special</div>
+        <div class="pv-from" id="pvFrom">with love from —</div>
+      </div>
+      <div class="pv-body">
+        <div class="pv-letter" id="pvLetter"></div>
+        <div class="pv-stickers" id="pvStickers"></div>
+        <div id="pvMusicBadge" style="display:none">
+          <div class="pv-music-badge">
+            <div class="mbar-wrap"><div class="mbar"></div><div class="mbar"></div><div class="mbar"></div></div>
+            <span id="pvMusicName">Music</span>
+          </div>
+        </div>
+      </div>
+      <div class="pv-actions">
+        <button class="btn btn-secondary" onclick="showPage('create')">✏️ Edit</button>
+        <button class="btn btn-champagne" onclick="generateShareLink()">🔗 Generate Share Link</button>
+      </div>
+    </div>
+
+    <div id="shareSection" style="display:none;margin-top:22px">
+      <div class="share-box">
+        <div class="share-link" id="shareLink"></div>
+        <button class="copy-btn" id="copyBtn" onclick="copyLink()">Copy</button>
+      </div>
+      <div style="display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-top:18px">
+        <button class="btn btn-whatsapp" onclick="shareWhatsApp()">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.115.553 4.099 1.518 5.822L.057 23.885l6.235-1.637A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.883 0-3.652-.511-5.176-1.4l-.371-.22-3.844 1.009 1.026-3.752-.241-.386A9.968 9.968 0 012 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+          Share on WhatsApp
+        </button>
+        <button class="btn btn-secondary" onclick="downloadCard()">⬇️ Download</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ PAGE: VIEW (receiver) ═══════════════════════════ -->
+<section id="page-view" class="page">
+  <!-- Canvas scoped inside #page-view (position:relative) -->
+  <canvas class="view-petals-canvas" id="viewPetals"></canvas>
+  <div class="view-glow"></div>
+  <div class="view-scene">
+    <div class="view-card">
+      <div class="view-header">
+        <div class="view-bq-wrap">
+          <div class="petal-ring" id="petalRing"></div>
+          <span class="view-bq" id="viewBouquet">🌹</span>
+        </div>
+        <div class="view-greeting">A special surprise for</div>
+        <div class="view-recipient" id="viewRecipient">You</div>
+        <div class="view-sender" id="viewSender">from someone who cares</div>
+      </div>
+      <div class="view-body">
+        <div class="view-letter" id="viewLetter"></div>
+        <div class="view-stickers" id="viewStickers"></div>
+      </div>
+      <div class="view-footer">
+        <div class="view-cta-txt">Want to send a surprise to someone too?</div>
+        <button class="btn btn-primary" onclick="showPage('landing')">✨ Create Your Own 💐</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Music player -->
+<div class="music-player" id="musicPlayer">
+  <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+  <div class="music-lbl" id="musicLbl">Music</div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast" aria-live="polite"></div>
+
+<!-- Confetti -->
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
+
+<!-- ═══════════════════════════ SCRIPTS ═══════════════════════════ -->
+<script>
+/* ─── DATA ─── */
+const BOUQUETS = [
+  { id:'roses',      emoji:'🌹', name:'Red Roses',     vibe:'Classic Love' },
+  { id:'pink',       emoji:'🌸', name:'Pink Blossoms', vibe:'Soft Apology' },
+  { id:'tulips',     emoji:'🌷', name:'Tulips',        vibe:'Springtime' },
+  { id:'sunflower',  emoji:'🌻', name:'Sunflowers',    vibe:'Happiness' },
+  { id:'mixed',      emoji:'💐', name:'Mixed Bouquet', vibe:'Extra Love' },
+  { id:'white',      emoji:'🤍', name:'White Lilies',  vibe:'Pure & Sincere' },
+  { id:'romantic',   emoji:'🥀', name:'Dark Rose',     vibe:'Deep Feelings' },
+  { id:'friendship', emoji:'🌼', name:'Daisies',       vibe:'Friendship' },
+];
+const MUSIC_OPTS = [
+  { id:'none',     icon:'🔇', name:'No Music',   desc:'Silent' },
+  { id:'romantic', icon:'🎻', name:'Romantic',   desc:'Soft strings' },
+  { id:'calm',     icon:'🎹', name:'Calm Piano', desc:'Gentle keys' },
+  { id:'pop',      icon:'🎵', name:'Upbeat',     desc:'Happy vibes' },
+  { id:'sad',      icon:'🎸', name:'Emotional',  desc:'Deep feelings' },
+];
+const MUSIC_URLS = {
+  romantic: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3',
+  calm:     'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-3.mp3',
+  pop:      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3',
+  sad:      'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-9.mp3',
+};
+// Stickers stored as indices — never embedded in onclick attributes
+const STICKERS = ['💕','💖','💗','💓','💞','✨','🌟','⭐','🦋','🌈','🥺','😢','😊','🙏','💫','🌺','🍀','💝'];
+
+/* ─── STATE ─── */
+const S = {
+  bouquet: 'roses', music: 'none', stickerIdx: [],
+  sender: '', receiver: '', letter: ''
+};
+let audioEl=null, isPlaying=false, dark=false;
+let heroPAF=null, viewPAF=null;
+let toastTimer=null;
+
+/* ─── INIT ─── */
+window.addEventListener('load', () => {
+  // Unblock pointer events IMMEDIATELY, then fade
+  const lo = document.getElementById('loadingOverlay');
+  lo.style.pointerEvents = 'none'; // click-through right away
+  setTimeout(() => lo.classList.add('fade'), 700);
+  setTimeout(() => lo.remove(), 1200);
+
+  // Check for shared message ?msg=ID
+  const id = new URLSearchParams(location.search).get('msg');
+  if (id) { loadSharedMsg(id); return; }
+
+  initHeroPetals();
+
+  const ta = document.getElementById('letterText');
+  if (ta) ta.addEventListener('input', () => {
+    document.getElementById('charCount').textContent = ta.value.length;
+  });
+});
+
+/* ─── PAGE NAVIGATION ─── */
+function showPage(pg) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const el = document.getElementById('page-' + pg);
+  if (!el) return;
+  el.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  if (pg === 'create') {
+    // Always render grids fresh so they're immediately visible and interactive
+    renderBouquetGrid();
+    renderMusicGrid();
+    renderStickerRow();
+    clearErrors();
+  }
+  if (pg === 'landing') initHeroPetals();
+  if (pg === 'view')    initViewPetals();
+}
+
+/* ─── DARK MODE ─── */
+function toggleDark() {
+  dark = !dark;
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : '');
+  document.getElementById('darkBtn').textContent = dark ? '☀️' : '🌙';
+}
+
+function scrollToFeats() {
+  document.getElementById('featsSection')?.scrollIntoView({ behavior:'smooth' });
+}
+
+/* ─── BOUQUET GRID ─── */
+function renderBouquetGrid() {
+  const g = document.getElementById('bouquetGrid');
+  if (!g) return;
+  g.innerHTML = '';
+  BOUQUETS.forEach(b => {
+    const d = document.createElement('div');
+    d.className = 'bq-item' + (b.id === S.bouquet ? ' selected' : '');
+    d.id = 'bq-' + b.id;
+    d.innerHTML = `<span class="bq-emoji">${b.emoji}</span><div class="bq-name">${b.name}</div><div class="bq-vibe">${b.vibe}</div>`;
+    d.addEventListener('click', () => selectBouquet(b.id));
+    g.appendChild(d);
+  });
+}
+function selectBouquet(id) {
+  S.bouquet = id;
+  document.querySelectorAll('.bq-item').forEach(e => e.classList.remove('selected'));
+  document.getElementById('bq-' + id)?.classList.add('selected');
+}
+
+/* ─── MUSIC GRID ─── */
+function renderMusicGrid() {
+  const g = document.getElementById('musicGrid');
+  if (!g) return;
+  g.innerHTML = '';
+  MUSIC_OPTS.forEach(m => {
+    const d = document.createElement('div');
+    d.className = 'mu-item' + (m.id === S.music ? ' selected' : '');
+    d.id = 'mu-' + m.id;
+    d.innerHTML = `<span class="mu-icon">${m.icon}</span><div><div class="mu-name">${m.name}</div><div class="mu-desc">${m.desc}</div></div>`;
+    d.addEventListener('click', () => selectMusic(m.id));
+    g.appendChild(d);
+  });
+}
+function selectMusic(id) {
+  S.music = id;
+  document.querySelectorAll('.mu-item').forEach(e => e.classList.remove('selected'));
+  document.getElementById('mu-' + id)?.classList.add('selected');
+}
+
+/* ─── STICKERS — use data-idx, never emoji in onclick ─── */
+function renderStickerRow() {
+  const r = document.getElementById('stickerRow');
+  if (!r) return;
+  r.innerHTML = '';
+  STICKERS.forEach((s, i) => {
+    const b = document.createElement('button');
+    b.className = 'stk-btn' + (S.stickerIdx.includes(i) ? ' selected' : '');
+    b.textContent = s;
+    b.dataset.idx = i;
+    b.addEventListener('click', () => toggleSticker(i));
+    r.appendChild(b);
+  });
+  updateStickerDisplay();
+}
+function toggleSticker(i) {
+  const pos = S.stickerIdx.indexOf(i);
+  if (pos === -1) {
+    if (S.stickerIdx.length >= 6) { showToast('Max 6 stickers 😊'); return; }
+    S.stickerIdx.push(i);
+  } else {
+    S.stickerIdx.splice(pos, 1);
+  }
+  document.querySelectorAll('.stk-btn').forEach(b => {
+    b.classList.toggle('selected', S.stickerIdx.includes(+b.dataset.idx));
+  });
+  updateStickerDisplay();
+}
+function updateStickerDisplay() {
+  const el = document.getElementById('selStickers');
+  if (!el) return;
+  el.innerHTML = S.stickerIdx.length
+    ? S.stickerIdx.map(i => STICKERS[i]).join(' ')
+    : '<span class="stk-placeholder">None yet</span>';
+}
+
+/* ─── VALIDATION + SUBMIT ─── */
+function clearErrors() {
+  document.querySelectorAll('.field-err').forEach(e => e.classList.remove('show'));
+  ['senderName','receiverName','letterText'].forEach(id => {
+    document.getElementById(id)?.classList.remove('error');
+  });
+}
+function submitCreate() {
+  clearErrors();
+  const sender   = (document.getElementById('senderName').value || '').trim();
+  const receiver = (document.getElementById('receiverName').value || '').trim();
+  const letter   = (document.getElementById('letterText').value || '').trim();
+  let ok = true;
+  if (!sender)   { document.getElementById('senderName').classList.add('error');   document.getElementById('errSender').classList.add('show');   ok=false; }
+  if (!receiver) { document.getElementById('receiverName').classList.add('error'); document.getElementById('errReceiver').classList.add('show'); ok=false; }
+  if (!letter)   { document.getElementById('letterText').classList.add('error');   document.getElementById('errLetter').classList.add('show');   ok=false; }
+  if (!ok) {
+    showToast('Please fill in the highlighted fields 💌');
+    document.getElementById('senderName').scrollIntoView({ behavior:'smooth', block:'center' });
+    return;
+  }
+  S.sender = sender; S.receiver = receiver; S.letter = letter;
+  buildPreview();
+  showPage('preview');
+}
+
+/* ─── PREVIEW ─── */
+function buildPreview() {
+  const bq = BOUQUETS.find(b => b.id === S.bouquet) || BOUQUETS[0];
+  const mu = MUSIC_OPTS.find(m => m.id === S.music);
+  document.getElementById('pvBouquet').textContent  = bq.emoji;
+  document.getElementById('pvName').textContent     = S.receiver;
+  document.getElementById('pvFrom').textContent     = 'with love from ' + S.sender;
+  document.getElementById('pvLetter').textContent   = S.letter;
+  document.getElementById('pvStickers').textContent = S.stickerIdx.map(i => STICKERS[i]).join(' ');
+  const badge = document.getElementById('pvMusicBadge');
+  if (S.music !== 'none' && mu) {
+    badge.style.display = 'block';
+    document.getElementById('pvMusicName').textContent = mu.name;
+  } else {
+    badge.style.display = 'none';
+  }
+  document.getElementById('shareSection').style.display = 'none';
+}
+
+/* ─── SHARE LINK ─── */
+function generateShareLink() {
+  const id = 'msg_' + Date.now() + '_' + Math.random().toString(36).slice(2,8);
+  const data = {
+    id,
+    senderName:   S.sender,
+    receiverName: S.receiver,
+    letter:       S.letter,
+    bouquet:      S.bouquet,
+    music:        S.music,
+    stickers:     S.stickerIdx.map(i => STICKERS[i]),
+    createdAt:    new Date().toISOString(),
+  };
+  // Store in localStorage (works standalone, no server needed)
+  try {
+    const store = JSON.parse(localStorage.getItem('ss_msgs') || '{}');
+    store[id] = data;
+    localStorage.setItem('ss_msgs', JSON.stringify(store));
+  } catch(e) {}
+  // Also try server (silent fail if not running)
+  fetch('/api/messages', {
+    method: 'POST', headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(data)
+  }).catch(() => {});
+
+  const link = location.origin + location.pathname + '?msg=' + id;
+  document.getElementById('shareLink').textContent = link;
+  document.getElementById('shareSection').style.display = 'block';
+  launchConfetti();
+  showToast('🎉 Link ready! Share it now!');
+  document.getElementById('shareSection').scrollIntoView({ behavior:'smooth' });
+}
+
+function copyLink() {
+  const link = document.getElementById('shareLink').textContent;
+  if (!link) return;
+  const btn = document.getElementById('copyBtn');
+  const fallback = () => {
+    const ta = document.createElement('textarea');
+    ta.value=link; ta.style.cssText='position:fixed;opacity:0;top:0;left:0';
+    document.body.appendChild(ta); ta.select(); document.execCommand('copy');
+    document.body.removeChild(ta);
+  };
+  (navigator.clipboard ? navigator.clipboard.writeText(link).catch(fallback) : Promise.resolve(fallback()))
+    .then(() => {
+      btn.textContent='✓ Copied!'; btn.classList.add('copied');
+      setTimeout(() => { btn.textContent='Copy'; btn.classList.remove('copied'); }, 2200);
+      showToast('Copied to clipboard! 📋');
+    });
+}
+
+function shareWhatsApp() {
+  const link = document.getElementById('shareLink').textContent;
+  if (!link) { showToast('Generate a link first!'); return; }
+  const bq  = BOUQUETS.find(b => b.id === S.bouquet) || BOUQUETS[0];
+  const msg = `Hey ${S.receiver} ${bq.emoji}\n\nI made something special for you 💐\n\n${link}\n\n— ${S.sender}`;
+  window.open('https://wa.me/?text=' + encodeURIComponent(msg), '_blank');
+}
+
+/* ─── LOAD SHARED MESSAGE ─── */
+function loadSharedMsg(id) {
+  let data = null;
+  try { data = (JSON.parse(localStorage.getItem('ss_msgs') || '{}'))[id]; } catch(e) {}
+  if (data) { renderViewPage(data); return; }
+  fetch('/api/messages/' + id)
+    .then(r => r.ok ? r.json() : null)
+    .then(d => d ? renderViewPage(d) : showPage('landing'))
+    .catch(() => showPage('landing'));
+}
+
+function renderViewPage(data) {
+  const bq = BOUQUETS.find(b => b.id === data.bouquet) || BOUQUETS[0];
+  document.getElementById('viewBouquet').textContent   = bq.emoji;
+  document.getElementById('viewRecipient').textContent = data.receiverName;
+  document.getElementById('viewSender').textContent    = 'from ' + data.senderName + ' with love 💕';
+  document.getElementById('viewStickers').textContent  = (data.stickers || []).join(' ');
+
+  // Petal ring
+  const ring   = document.getElementById('petalRing');
+  const petals = ['🌸','🌺','🌼','🌹','🌷'];
+  ring.innerHTML = '';
+  for (let i = 0; i < 8; i++) {
+    const s = document.createElement('span');
+    s.textContent = petals[i % petals.length];
+    const ang = (i / 8) * 360;
+    s.style.transform = `rotate(${ang}deg) translateY(-54px)`;
+    ring.appendChild(s);
+  }
+
+  showPage('view');
+  setTimeout(() => typewriter(document.getElementById('viewLetter'), data.letter, 18), 450);
+
+  if (data.music && data.music !== 'none' && MUSIC_URLS[data.music]) {
+    const mu = MUSIC_OPTS.find(m => m.id === data.music) || { name:'Music' };
+    setupMusic(MUSIC_URLS[data.music], mu.name);
+  }
+  setTimeout(launchConfetti, 1000);
+}
+
+/* ─── TYPEWRITER ─── */
+function typewriter(el, text, spd) {
+  el.innerHTML = '<span class="cursor"></span>';
+  const cur = el.querySelector('.cursor');
+  let i = 0;
+  const t = setInterval(() => {
+    if (i >= text.length) { clearInterval(t); cur.remove(); return; }
+    cur.insertAdjacentText('beforebegin', text[i++]);
+  }, spd);
+}
+
+/* ─── MUSIC ─── */
+function setupMusic(url, name) {
+  document.getElementById('musicLbl').textContent = name;
+  document.getElementById('musicPlayer').classList.add('on');
+  audioEl = new Audio(url);
+  audioEl.loop = true; audioEl.volume = 0.4;
+}
+function toggleMusic() {
+  if (!audioEl) return;
+  const btn = document.getElementById('musicBtn');
+  if (isPlaying) {
+    audioEl.pause(); isPlaying = false; btn.textContent = '▶';
+  } else {
+    audioEl.play().catch(()=>{});
+    isPlaying = true;
+    btn.innerHTML = `<div class="mbar-wrap" style="height:20px"><div class="mbar"></div><div class="mbar"></div><div class="mbar"></div></div>`;
+  }
+}
+
+/* ─── CONFETTI ─── */
+function launchConfetti() {
+  const cv = document.getElementById('confetti-canvas');
+  const cx = cv.getContext('2d');
+  cv.width = innerWidth; cv.height = innerHeight;
+  const cols = ['#C8536F','#F9E8EE','#C9A84C','#F0CEDB','#fff','#E8849A'];
+  const syms = ['💕','🌸','✨','💐','🌹'];
+  const ps = Array.from({length:70}, () => ({
+    x:Math.random()*cv.width, y:-20,
+    r:Math.random()*7+4, vx:(Math.random()-.5)*4, vy:Math.random()*3.5+1.5,
+    rot:Math.random()*360, rv:(Math.random()-.5)*5, op:1,
+    c:cols[~~(Math.random()*cols.length)],
+    s:Math.random()>.7?syms[~~(Math.random()*syms.length)]:null
+  }));
+  let f=0;
+  const draw = () => {
+    cx.clearRect(0,0,cv.width,cv.height);
+    let alive=false;
+    ps.forEach(p => {
+      p.x+=p.vx; p.y+=p.vy; p.rot+=p.rv;
+      if(f>65) p.op-=0.013;
+      if(p.op>0) alive=true;
+      cx.save(); cx.globalAlpha=Math.max(0,p.op);
+      cx.translate(p.x,p.y); cx.rotate(p.rot*Math.PI/180);
+      if(p.s){cx.font=`${p.r*3.4}px serif`;cx.fillText(p.s,-p.r*1.5,p.r*1.5);}
+      else{cx.fillStyle=p.c;cx.fillRect(-p.r/2,-p.r/2,p.r,p.r);}
+      cx.restore();
+    });
+    f++;
+    if(alive) requestAnimationFrame(draw);
+    else cx.clearRect(0,0,cv.width,cv.height);
+  };
+  draw();
+}
+
+/* ─── FALLING PETALS (scoped inside hero / view) ─── */
+function mkPetal(cv, ems, initial) {
+  return {
+    x:Math.random()*cv.width, y:initial?Math.random()*cv.height:-20,
+    size:Math.random()*15+10, speed:Math.random()*0.65+0.22,
+    wind:(Math.random()-.5)*.4, rot:Math.random()*360, rv:(Math.random()-.5)*1.7,
+    op:Math.random()*.42+.13, emoji:ems[~~(Math.random()*ems.length)]
+  };
+}
+function drawPetals(cv, cx, ps, ems, rafRef) {
+  cx.clearRect(0,0,cv.width,cv.height);
+  ps.forEach((p,i) => {
+    p.y+=p.speed; p.x+=p.wind; p.rot+=p.rv;
+    if(p.y>cv.height+30) ps[i]=mkPetal(cv,ems,false);
+    cx.save(); cx.globalAlpha=p.op;
+    cx.translate(p.x,p.y); cx.rotate(p.rot*Math.PI/180);
+    cx.font=`${p.size}px serif`; cx.fillText(p.emoji,-p.size/2,p.size/2);
+    cx.restore();
+  });
+  return requestAnimationFrame(() => drawPetals(cv,cx,ps,ems,rafRef));
+}
+function initHeroPetals() {
+  if (heroPAF) cancelAnimationFrame(heroPAF);
+  const cv = document.getElementById('heroPetals');
+  if (!cv) return;
+  const cx = cv.getContext('2d');
+  const hero = cv.parentElement;
+  cv.width  = hero.offsetWidth  || innerWidth;
+  cv.height = hero.offsetHeight || innerHeight;
+  const ems = ['🌸','🌺','🌼','💮','🌷'];
+  const ps  = Array.from({length:15}, () => mkPetal(cv, ems, true));
+  heroPAF = drawPetals(cv, cx, ps, ems, heroPAF);
+}
+function initViewPetals() {
+  if (viewPAF) cancelAnimationFrame(viewPAF);
+  const cv = document.getElementById('viewPetals');
+  if (!cv) return;
+  const cx = cv.getContext('2d');
+  cv.width  = cv.parentElement?.offsetWidth  || innerWidth;
+  cv.height = cv.parentElement?.offsetHeight || innerHeight;
+  const ems = ['🌸','🌺','🌼','🌹','🌷','💕'];
+  const ps  = Array.from({length:20}, () => mkPetal(cv, ems, true));
+  viewPAF = drawPetals(cv, cx, ps, ems, viewPAF);
+}
+
+/* ─── TOAST ─── */
+function showToast(msg) {
+  const el = document.getElementById('toast');
+  el.textContent = msg; el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2800);
+}
+
+/* ─── DOWNLOAD ─── */
+function downloadCard() {
+  const bd = document.createElement('div');
+  bd.style.cssText='position:fixed;inset:0;z-index:5000;background:rgba(0,0,0,.55);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;animation:pageFade .25s ease';
+  bd.innerHTML=`<div style="background:var(--surface);border:1px solid var(--border);border-radius:32px;padding:36px 30px;max-width:360px;width:calc(100% - 40px);text-align:center;box-shadow:0 24px 80px rgba(0,0,0,.28)">
+    <div style="font-family:'Cormorant Garamond',serif;font-size:26px;margin-bottom:10px;color:var(--text)">Save Your Card 💌</div>
+    <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;line-height:1.6">Use your browser's screenshot tool, or on mobile tap "Share → Save to Photos".</p>
+    <button class="btn btn-primary" onclick="this.closest('[style]').remove()">Got it!</button>
+  </div>`;
+  document.body.appendChild(bd);
+  bd.addEventListener('click', e => { if(e.target===bd) bd.remove(); });
+}
+</script>
+</body>
+</html>
